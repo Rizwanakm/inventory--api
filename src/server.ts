@@ -12,11 +12,15 @@ app.use(bodyParser.json());
 setupSwagger(app);
 
 // Routes
-app.use("/api/orders", orderRoutes);    // ✅ fixed
-app.use("/api/products", productRoutes); // ✅ fine
+app.use("/api/orders", orderRoutes);
+app.use("/api/products", productRoutes);
 
-mongoose.connect("mongodb://localhost:27017/inventoryDB")
+// ✅ MongoDB connection — use environment variable in Render
+mongoose
+  .connect(process.env.MONGODB_URL || "mongodb://localhost:27017/inventoryDB")
   .then(() => console.log("✅ MongoDB connected"))
-  .catch(err => console.error("MongoDB error:", err));
+  .catch((err) => console.error("❌ MongoDB error:", err));
 
-app.listen(5000, () => console.log("🚀 Server running on port 5000"));
+// ✅ Use Render’s PORT (important!)
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
