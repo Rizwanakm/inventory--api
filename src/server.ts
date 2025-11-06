@@ -24,4 +24,6 @@ app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
 
 // ✅ Server
-app.listen(5000, () => console.log("🚀 Server running on port 5000 (Swagger: http://localhost:5000/api-docs)"));
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT} (Swagger: http://localhost:${PORT}/api-docs)`));
+
